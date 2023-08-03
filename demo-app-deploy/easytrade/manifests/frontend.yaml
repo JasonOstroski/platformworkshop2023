@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: easytrade
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: gcr.io/dynatrace-demoability/easytrade/frontend:0d8bdc7
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            cpu: 300m
+            memory: 100Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: easytrade
+spec:
+  type: ClusterIP
+  selector:
+    app: frontend
+  ports:
+  - name: http
+    port: 3000
+    targetPort: 3000

@@ -1,0 +1,98 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: external-ip-resolver
+  namespace: easytrade
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ext-ip-res-role
+  namespace: easytrade
+rules:
+  - apiGroups: [""]
+    resources: ["services"]
+    verbs: ["get"]
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["create", "get", "update", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ext-ip-res-binding
+  namespace: easytrade
+subjects:
+  - kind: ServiceAccount
+    name: external-ip-resolver
+roleRef:
+  kind: Role
+  name: ext-ip-res-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: headlessloadgen
+  name: headlessloadgen
+  namespace: easytrade
+spec:
+  selector:
+    matchLabels:
+      app: headlessloadgen
+  template:
+    metadata:
+      labels:
+        app: headlessloadgen
+    spec:
+      serviceAccountName: external-ip-resolver
+      initContainers:
+      - image: alpine/k8s:1.20.7
+        name: headlessloadgen-ip-resolver
+        command: ['sh', '-c']
+        args:
+        - |
+          #!/bin/sh
+
+          SERVICE="frontendreverseproxy"
+          RETRIES=10
+          INTERVAL=15
+
+          while [ $RETRIES -gt 0 ]
+          do
+            IP=`kubectl get svc $SERVICE -o json | jq -r '.status.loadBalancer.ingress[0] | to_entries | .[0].value'`
+            if [ $IP ]
+            then
+              echo "Load balancer IP: $IP"
+              kubectl create configmap load-balancer --from-literal=external-ip=$IP --dry-run=client -o yaml | kubectl apply -f -
+              exit 0
+            fi
+            echo "Load balancer IP not set yet."
+            RETRIES=$((RETRIES-1))
+            echo "Remaining tries: $RETRIES"
+            echo "Waiting for $INTERVAL seconds..."
+            sleep $INTERVAL
+          done
+          exit 1
+      containers:
+      - name: headlessloadgen
+        image: gcr.io/dynatrace-demoability/headlessloadgen:latest
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "500m"
+          limits:
+            memory: "900Mi"
+            cpu: "700m"
+        env:
+        - name: EASY_TRADE_ADDRESS
+          valueFrom:
+            configMapKeyRef:
+              name: load-balancer
+              key: external-ip
+        - name: EASY_TRADE_PORT
+          value: "80"
+        - name: NODE_LOG_LEVEL
+          value: "debug"
