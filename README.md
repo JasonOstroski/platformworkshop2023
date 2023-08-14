@@ -15,7 +15,8 @@ Note: This is the first iteration of this workshop. There are many updates I'd l
  * Site Reliability Guardian
 * Wrap up with 10 minutes on Davis Copilot & Natural Language Query > DQL. "You as power users will still find DQL very useful, but we don't expect you to teach everyone in your org DQL. We are making it much easier for any user, techincal or not, to get answers from Dynatrace." 
 * Leave the lab environment up and running for 1-2 weeks after so users can play around and try the other labs.
-* I also encourage the users to leverage the lab evironment for running through the DQL DTU course/labs: https://university.dynatrace.com/ondemand/course/39387
+* I also encourage the users to leverage the lab evironment for running through the DQL DTU course/labs
+  * https://university.dynatrace.com/ondemand/course/39387
 
 ## Requirements
 * Dynatrace SaaS Tenant with Grail/Platform
