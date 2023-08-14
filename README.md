@@ -22,6 +22,7 @@ Note: This is the first iteration of this workshop. There are many updates I'd l
 * Dynatrace SaaS Tenant with Grail/Platform
 * K8s cluster
   * Tested Specs: 3 Nodes	24 vCPU	96 GB	RAM
+* AppSec Events Preview Turned On
  
 ## Setup
 * Spin up the K8s cluster and configure outbound rules for OneAgent traffic
@@ -41,22 +42,21 @@ kubectl apply -f ./hipstershop/manifests
 * Create SLOs
 * Create Biz Events
 * Upload Dashboards & Notebooks
-* Give Users Permissions/Policies
-  *  Polcies:
-    *  AppEngine - User
-    *  AutomationEngine - Automation admin
-    *  Environment role - Access environment
-    *  Environment role - View logs
-    *  Environment role - View security problems
-    *  Environment role - View sensitive request data
-    *  Settings Reader
-    *  Storage All Grail Data Read
-    *  Storage All System Data Read
-    *  Storage Bizevents Read
-    * Storage Default Monitoring Read
-    * Storage Entities Read
-    * Storage Events Read
-    * Storage Logs Read
-    * Storage Metrics Read
-    * Storage Spans Read
+* Assign users to a group with the following policies
+  *  AppEngine - User
+  * AutomationEngine - Automation admin
+  *  Environment role - Access environment
+  *  Environment role - View logs
+  *  Environment role - View security problems
+  *  Environment role - View sensitive request data
+  *  Settings Reader
+  *  Storage All Grail Data Read
+  *  Storage All System Data Read
+  *  Storage Bizevents Read
+  * Storage Default Monitoring Read
+  * Storage Entities Read
+  * Storage Events Read
+  * Storage Logs Read
+  * Storage Metrics Read
+  * Storage Spans Read
   
