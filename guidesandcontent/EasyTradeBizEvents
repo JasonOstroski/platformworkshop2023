@@ -1,0 +1,39 @@
+EasyTrade - Sell Assets
+curl 'https://DT_TENANT.live.dynatrace.com/api/v2/settings/objects' \
+-X POST \
+-H 'Accept: application/json; charset=utf-8' \
+-H 'Content-Type: application/json; charset=utf-8' \
+-H 'Authorization: Api-Token ACCESS_TOKEN' \
+-d $'[{"schemaId":"builtin:bizevents.http.incoming","schemaVersion":"1.0.2","scope":"environment","value":{"enabled":true,"ruleName":"[ws] easyTrade - /broker/api/trade/SellAssets","triggers":[{"source":{"dataSource":"request.path"},"type":"STARTS_WITH","value":"/broker/api/trade/SellAssets","caseSensitive":true}],"event":{"provider":{"sourceType":"constant.string","source":"www.easytrade.com"},"type":{"sourceType":"constant.string","source":"com.easytrade.sell-assets"},"category":{"sourceType":"request.path"},"data":[{"name":"rsbody","source":{"sourceType":"response.body","path":"*"}},{"name":"rqbody","source":{"sourceType":"request.body","path":"*"}},{"name":"price","source":{"sourceType":"request.body","path":"price"}},{"name":"instrumentId","source":{"sourceType":"request.body","path":"instrumentId"}},{"name":"amount","source":{"sourceType":"request.body","path":"amount"}},{"name":"accountId","source":{"sourceType":"request.body","path":"accountId"}}]}}}]'
+
+EasyTrade - Deposit Money
+curl 'https://DT_TENANT.live.dynatrace.com/api/v2/settings/objects' \
+-X POST \
+-H 'Accept: application/json; charset=utf-8' \
+-H 'Content-Type: application/json; charset=utf-8' \
+-H 'Authorization: Api-Token ACCESS_TOKEN' \
+-d $'[{"schemaId":"builtin:bizevents.http.incoming","schemaVersion":"1.0.2","scope":"environment","value":{"enabled":true,"ruleName":"[.net] easyTrade - /api/creditcard/DepositMoney","triggers":[{"source":{"dataSource":"request.path"},"type":"CONTAINS","value":"/creditcard/DepositMoney","caseSensitive":true}],"event":{"provider":{"sourceType":"constant.string","source":"www.easytrade.com"},"type":{"sourceType":"constant.string","source":"com.easytrade.deposit-money"},"category":{"sourceType":"request.path"},"data":[{"name":"name","source":{"sourceType":"request.body","path":"name"}},{"name":"email","source":{"sourceType":"request.body","path":"email"}},{"name":"cvv","source":{"sourceType":"request.body","path":"cvv"}},{"name":"cardType","source":{"sourceType":"request.body","path":"cardType"}},{"name":"cardNumber","source":{"sourceType":"request.body","path":"cardNumber"}},{"name":"amount","source":{"sourceType":"request.body","path":"amount"}},{"name":"address","source":{"sourceType":"request.body","path":"address"}},{"name":"accountId","source":{"sourceType":"request.body","path":"accountId"}}]}}}]'
+
+EasyTrade - Buy assets
+curl 'https://DT_TENANT.live.dynatrace.com/api/v2/settings/objects' \
+-X POST \
+-H 'Accept: application/json; charset=utf-8' \
+-H 'Content-Type: application/json; charset=utf-8' \
+-H 'Authorization: Api-Token ACCESS_TOKEN' \
+-d $'[{"schemaId":"builtin:bizevents.http.incoming","schemaVersion":"1.0.2","scope":"environment","value":{"enabled":true,"ruleName":"[.net] easyTrade - /api/creditcard/DepositMoney","triggers":[{"source":{"dataSource":"request.path"},"type":"CONTAINS","value":"/creditcard/DepositMoney","caseSensitive":true}],"event":{"provider":{"sourceType":"constant.string","source":"www.easytrade.com"},"type":{"sourceType":"constant.string","source":"com.easytrade.deposit-money"},"category":{"sourceType":"request.path"},"data":[{"name":"name","source":{"sourceType":"request.body","path":"name"}},{"name":"email","source":{"sourceType":"request.body","path":"email"}},{"name":"cvv","source":{"sourceType":"request.body","path":"cvv"}},{"name":"cardType","source":{"sourceType":"request.body","path":"cardType"}},{"name":"cardNumber","source":{"sourceType":"request.body","path":"cardNumber"}},{"name":"amount","source":{"sourceType":"request.body","path":"amount"}},{"name":"address","source":{"sourceType":"request.body","path":"address"}},{"name":"accountId","source":{"sourceType":"request.body","path":"accountId"}}]}}}]'
+
+EasyTrade - Withdraw money
+curl 'https://DT_TENANT.live.dynatrace.com/api/v2/settings/objects' \
+-X POST \
+-H 'Accept: application/json; charset=utf-8' \
+-H 'Content-Type: application/json; charset=utf-8' \
+-H 'Authorization: Api-Token ACCESS_TOKEN' \
+-d $'[{"schemaId":"builtin:bizevents.http.incoming","schemaVersion":"1.0.2","scope":"environment","value":{"enabled":true,"ruleName":"[.net] easyTrade - /api/creditcard/WithdrawMoney","triggers":[{"source":{"dataSource":"request.path"},"type":"STARTS_WITH","value":"/api/creditcard/WithdrawMoney","caseSensitive":true}],"event":{"provider":{"sourceType":"constant.string","source":"www.easytrade.com"},"type":{"sourceType":"constant.string","source":"com.easytrade.withdraw-money"},"category":{"sourceType":"request.path"},"data":[{"name":"name","source":{"sourceType":"request.body","path":"name"}},{"name":"email","source":{"sourceType":"request.body","path":"email"}},{"name":"cardType","source":{"sourceType":"request.body","path":"cardType"}},{"name":"cardNumber","source":{"sourceType":"request.body","path":"cardNumber"}},{"name":"amount","source":{"sourceType":"request.body","path":"amount"}},{"name":"address","source":{"sourceType":"request.body","path":"address"}},{"name":"accountId","source":{"sourceType":"request.body","path":"accountId"}}]}}}]'
+
+EasyTrade - CreateTrade
+curl 'https://DT_TENANT.live.dynatrace.com/api/v2/settings/objects' \
+-X POST \
+-H 'Accept: application/json; charset=utf-8' \
+-H 'Content-Type: application/json; charset=utf-8' \
+-H 'Authorization: Api-Token ACCESS_TOKEN' \
+-d $'[{"schemaId":"builtin:bizevents.http.incoming","schemaVersion":"1.0.2","scope":"environment","value":{"enabled":true,"ruleName":"[.net] easyTrade - /api/Trades/CreateTrade","triggers":[{"source":{"dataSource":"request.path"},"type":"STARTS_WITH","value":"/api/Trades/CreateTrade","caseSensitive":true}],"event":{"provider":{"sourceType":"constant.string","source":"www.easytrade.com"},"type":{"sourceType":"constant.string","source":"com.easytrade.create-trade"},"category":{"sourceType":"request.path"},"data":[{"name":"transactionHappened","source":{"sourceType":"request.body","path":"transactionHappened"}},{"name":"tradeClosed","source":{"sourceType":"request.body","path":"tradeClosed"}},{"name":"timestampOpen","source":{"sourceType":"request.body","path":"timestampOpen"}},{"name":"timestampClose","source":{"sourceType":"request.body","path":"timestampClose"}},{"name":"quantity","source":{"sourceType":"request.body","path":"quantity"}},{"name":"instrumentId","source":{"sourceType":"request.body","path":"instrumentId"}},{"name":"id","source":{"sourceType":"request.body","path":"id"}},{"name":"entryPrice","source":{"sourceType":"request.body","path":"entryPrice"}},{"name":"direction","source":{"sourceType":"request.body","path":"direction"}},{"name":"accountId","source":{"sourceType":"request.body","path":"accountId"}}]}}}]'

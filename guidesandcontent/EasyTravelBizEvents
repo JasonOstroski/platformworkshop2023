@@ -1,0 +1,47 @@
+EasyTravel - Booking Mobile
+curl 'https://DT_TENANT.live.dynatrace.com/api/v2/settings/objects' \
+-X POST \
+-H 'Accept: application/json; charset=utf-8' \
+-H 'Content-Type: application/json; charset=utf-8' \
+-H 'Authorization: Api-Token ACCESS_TOKEN' \
+-d $'[{"schemaId":"builtin:bizevents.http.incoming","schemaVersion":"1.0.2","scope":"environment","value":{"enabled":true,"ruleName":"[java] com.easytravel.store-booking-mobile - /easytravel/rest/bookings-mobile","triggers":[{"source":{"dataSource":"request.path"},"type":"STARTS_WITH","value":"/easytravel/rest/bookings-mobile","caseSensitive":false}],"event":{"provider":{"sourceType":"constant.string","source":"www.easytravel.com"},"type":{"sourceType":"constant.string","source":"com.easytravel.store-booking-mobile"},"category":{"sourceType":"response.statusCode"},"data":[{"name":"technology","source":{"sourceType":"constant.string","source":"java"}},{"name":"rsbody","source":{"sourceType":"response.body","path":"*"}},{"name":"rqbody","source":{"sourceType":"request.body","path":"*"}},{"name":"res content-type","source":{"sourceType":"response.headers","path":"content-type"}},{"name":"req content-type","source":{"sourceType":"request.headers","path":"content-type"}}]}}}]'
+
+EasyTravel - Locations
+curl 'https://DT_TENANT.live.dynatrace.com/api/v2/settings/objects' \
+-X POST \
+-H 'Accept: application/json; charset=utf-8' \
+-H 'Content-Type: application/json; charset=utf-8' \
+-H 'Authorization: Api-Token ACCESS_TOKEN' \
+-d $'[{"schemaId":"builtin:bizevents.http.incoming","schemaVersion":"1.0.2","scope":"environment","value":{"enabled":true,"ruleName":"[java] com.easytravel.search-locations - /easytravel/rest/locations","triggers":[{"source":{"dataSource":"request.path"},"type":"STARTS_WITH","value":"/easytravel/rest/locations","caseSensitive":false}],"event":{"provider":{"sourceType":"constant.string","source":"www.easytravel.com"},"type":{"sourceType":"constant.string","source":"com.easytravel.search-locations"},"category":{"sourceType":"request.path"},"data":[{"name":"technology","source":{"sourceType":"constant.string","source":"java"}},{"name":"content-type","source":{"sourceType":"response.body","path":"*"}},{"name":"res content-type","source":{"sourceType":"request.headers","path":"content-type"}},{"name":"req content-type","source":{"sourceType":"request.headers","path":"content-type"}},{"name":"query","source":{"sourceType":"request.parameters","path":"match"}}]}}}]'
+
+EasyTravel - Journeys
+curl 'https://DT_TENANT.live.dynatrace.com/api/v2/settings/objects' \
+-X POST \
+-H 'Accept: application/json; charset=utf-8' \
+-H 'Content-Type: application/json; charset=utf-8' \
+-H 'Authorization: Api-Token ACCESS_TOKEN' \
+-d $'[{"schemaId":"builtin:bizevents.http.incoming","schemaVersion":"1.0.2","scope":"environment","value":{"enabled":true,"ruleName":"[java] com.easytravel.search-journey - (/easytravel/rest/journeys)","triggers":[{"source":{"dataSource":"request.path"},"type":"STARTS_WITH","value":"/easytravel/rest/journeys","caseSensitive":false}],"event":{"provider":{"sourceType":"constant.string","source":"www.easytravel.com"},"type":{"sourceType":"constant.string","source":"com.easytravel.search-journey"},"category":{"sourceType":"request.path"},"data":[{"name":"technology","source":{"sourceType":"constant.string","source":"java"}},{"name":"rsbody","source":{"sourceType":"response.body","path":"*"}},{"name":"rqbody","source":{"sourceType":"request.body","path":"*"}},{"name":"res content-type","source":{"sourceType":"response.headers","path":"content-type"}},{"name":"req content-type","source":{"sourceType":"request.headers","path":"content-type"}}]}}}]'
+
+EasyTravel - Validate Credit Card
+curl 'https://DT_TENANT.live.dynatrace.com/api/v2/settings/objects' \
+-X POST \
+-H 'Accept: application/json; charset=utf-8' \
+-H 'Content-Type: application/json; charset=utf-8' \
+-H 'Authorization: Api-Token ACCESS_TOKEN' \
+-d $'[{"schemaId":"builtin:bizevents.http.incoming","schemaVersion":"1.0.2","scope":"environment","value":{"enabled":true,"ruleName":"[java] com.easytravel.validate-creditcard - /easytravel/rest/validate-creditcard","triggers":[{"source":{"dataSource":"request.path"},"type":"STARTS_WITH","value":"/easytravel/rest/validate-creditcard","caseSensitive":false}],"event":{"provider":{"sourceType":"constant.string","source":"www.easytravel.com"},"type":{"sourceType":"constant.string","source":"com.easytravel.validate-creditcard"},"category":{"sourceType":"request.path"},"data":[{"name":"technology","source":{"sourceType":"constant.string","source":"java"}},{"name":"statusCode","source":{"sourceType":"response.statusCode"}},{"name":"rsbody","source":{"sourceType":"response.body","path":"*"}},{"name":"rqbody","source":{"sourceType":"request.body","path":"*"}},{"name":"res content-type","source":{"sourceType":"response.headers","path":"content-type"}},{"name":"req content-type","source":{"sourceType":"request.headers","path":"req content-type"}}]}}}]'
+
+EasyTravel - Calculate Recommendations
+curl 'https://DT_TENANT.live.dynatrace.com/api/v2/settings/objects' \
+-X POST \
+-H 'Accept: application/json; charset=utf-8' \
+-H 'Content-Type: application/json; charset=utf-8' \
+-H 'Authorization: Api-Token ACCESS_TOKEN' \
+-d $'[{"schemaId":"builtin:bizevents.http.incoming","schemaVersion":"1.0.2","scope":"environment","value":{"enabled":true,"ruleName":"[ws] easyTravel - /CalculateRecommendations","triggers":[{"source":{"dataSource":"request.path"},"type":"EQUALS","value":"/CalculateRecommendations","caseSensitive":false}],"event":{"provider":{"sourceType":"constant.string","source":"www.easytravel.com"},"type":{"sourceType":"constant.string","source":"com.easytravel.calculate-recommendations"},"category":{"sourceType":"constant.string","source":"-"},"data":[{"name":"rsbody","source":{"sourceType":"request.body","path":"*"}},{"name":"rqbody","source":{"sourceType":"request.body","path":"*"}},{"name":"response","source":{"sourceType":"response.statusCode"}},{"name":"id","source":{"sourceType":"request.body","path":"12345"}},{"name":"firstIndex","source":{"sourceType":"request.body","path":"1"}}]}}}]'
+
+EasyTravel - Login
+curl 'https://DT_TENANT.live.dynatrace.com/api/v2/settings/objects' \
+-X POST \
+-H 'Accept: application/json; charset=utf-8' \
+-H 'Content-Type: application/json; charset=utf-8' \
+-H 'Authorization: Api-Token ACCESS_TOKEN' \
+-d $'[{"schemaId":"builtin:bizevents.http.incoming","schemaVersion":"1.0.2","scope":"environment","value":{"enabled":true,"ruleName":"[ws] easyTravel - /login","triggers":[{"source":{"dataSource":"request.path"},"type":"EQUALS","value":"/login","caseSensitive":false}],"event":{"provider":{"sourceType":"constant.string","source":"www.easytravel.com"},"type":{"sourceType":"constant.string","source":"com.easytravel.login"},"category":{"sourceType":"request.path"},"data":[{"name":"password","source":{"sourceType":"request.body","path":"password"}},{"name":"lastName","source":{"sourceType":"request.body","path":"lastName"}},{"name":"firstName","source":{"sourceType":"request.body","path":"user.firstName"}},{"name":"email","source":{"sourceType":"request.body","path":"email"}}]}}}]'
