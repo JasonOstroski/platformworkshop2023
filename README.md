@@ -42,4 +42,21 @@ kubectl apply -f ./hipstershop/manifests
 * Create Biz Events
 * Upload Dashboards & Notebooks
 * Give Users Permissions/Policies
+  *  Polcies:
+    *  AppEngine - User
+    *  AutomationEngine - Automation admin
+    *  Environment role - Access environment
+    *  Environment role - View logs
+    *  Environment role - View security problems
+    *  Environment role - View sensitive request data
+    *  Settings Reader
+    *  Storage All Grail Data Read
+    *  Storage All System Data Read
+    *  Storage Bizevents Read
+    * Storage Default Monitoring Read
+    * Storage Entities Read
+    * Storage Events Read
+    * Storage Logs Read
+    * Storage Metrics Read
+    * Storage Spans Read
   
