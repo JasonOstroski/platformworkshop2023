@@ -23,8 +23,8 @@ Note: This is the first iteration of this workshop. There are many updates I'd l
 * K8s cluster
   * Tested Specs: 3 Ndoes	24 vCPU	96 GB	RAM
  
-## Installation
-* Spin up the K8s cluster
+## Setup
+* Spin up the K8s cluster and configure outbound rules for OneAgent traffic
 * Install the OneAgent Operator
 * Install the demo apps
 
