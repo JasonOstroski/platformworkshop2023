@@ -21,7 +21,7 @@ Note: This is the first iteration of this workshop. There are many updates I'd l
 ## Requirements
 * Dynatrace SaaS Tenant with Grail/Platform
 * K8s cluster
-  * Tested Specs: 3 Ndoes	24 vCPU	96 GB	RAM
+  * Tested Specs: 3 Nodes	24 vCPU	96 GB	RAM
  
 ## Setup
 * Spin up the K8s cluster and configure outbound rules for OneAgent traffic
