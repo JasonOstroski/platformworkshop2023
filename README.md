@@ -19,10 +19,10 @@ Note: This is the first iteration of this workshop. There are many updates I'd l
   * https://university.dynatrace.com/ondemand/course/39387
 
 ## Requirements
-* Dynatrace SaaS Tenant with Grail/Platform
+* Dynatrace SaaS Tenant with Grail/Platform\
+  * AppSec Events Preview Turned On
 * K8s cluster
   * Tested Specs: 3 Nodes	24 vCPU	96 GB	RAM
-* AppSec Events Preview Turned On
  
 ## Setup
 * Spin up the K8s cluster and configure outbound rules for OneAgent traffic
