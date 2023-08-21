@@ -3,6 +3,7 @@ Note: This is the first iteration of this workshop. There are many updates I'd l
 
 ## Workshop Format
 * This workshop is intended to be a hands on introduction to Grail and the new Dynatrace platform.
+* Audience: Existing Dynatrace customers and late stage prospect (Intermediate Level Workshop).
 * Time: 2.5-4 Hours depending on how many labs you want to cover.
 * Present a 30 minute "Getting to know the new Dynatrace/Platform Update" presentation.
    * https://dynatrace-my.sharepoint.com/:p:/p/jason_ostroski/EfKMF8gLkyVAqeTT753PwPEB2OlbRhS7ldyafuuamzRfxQ?e=hYDk36
