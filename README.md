@@ -1,5 +1,5 @@
 # Here's how to install and run the Dynatrace Platform Workshop!
-Note: This is the first iteration of this workshop. There are many updates I'd like to do to reduce the footprint (maybe only use 1-2 app instead of 3) and to build out the use cases further. 
+Note: This is the first iteration of this workshop. There are many updates I'd like to do to reduce the footprint (maybe only use 1-2 app instead of 3) and to build out the use cases further. Also, all the images are going to move to GitHub to have all of the assets in one spot. The only way to host images in GitHub (the only way I've found that works with Notebooks) is to open an issue and copy the iamge to it. 
 
 ## Workshop Format
 * This workshop is intended to be a hands on introduction to Grail and the new Dynatrace platform.
