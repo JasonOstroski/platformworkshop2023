@@ -1,0 +1,113 @@
+{
+  "id": "236fa2d0-d42b-4416-a518-3a655391b912",
+  "title": "Predict Disk Capacity",
+  "description": "",
+  "tasks": {
+    "send_message": {
+      "name": "send_message",
+      "description": "Send a message to a Slack workspace",
+      "action": "dynatrace.slack:slack-send-message",
+      "input": {
+        "channel": "C05MM1PPWF2",
+        "message": "Prediction Execution Status: {{ result(\"predict_disk_capacity\").result.executionStatus }}\nPrediction Result Status: {{ result(\"predict_disk_capacity\").result.executionStatus }}\nPrediction Result ID: {{ result(\"predict_disk_capacity\").result.resultId }}\nDid prediction violate our thresold? {{ result('check_prediction').violation }}\n",
+        "reaction": [],
+        "connection": "vu9U3hXa3q0AAAABAB5hcHA6ZHluYXRyYWNlLnNsYWNrOmNvbm5lY3Rpb24ABnRlbmFudAAGdGVuYW50ACQ4MDY4OWRkNS1mNjdjLTNkYTMtYjVhZS0xZDZmZWQ2NWJhZjO-71TeFdrerQ",
+        "workflowID": "{{ execution().workflow.id }}",
+        "channelType": "id",
+        "executionID": "{{ execution().id }}",
+        "executionDate": "{{ execution().started_at }}",
+        "appendToThread": false,
+        "selectedRequestType": 0,
+        "attachmentToggleValue": "none"
+      },
+      "position": {
+        "x": 0,
+        "y": 3
+      },
+      "predecessors": [
+        "check_prediction"
+      ],
+      "conditions": {
+        "states": {
+          "check_prediction": "SUCCESS"
+        },
+        "custom": "{{ result('check_prediction').violation }}"
+      }
+    },
+    "check_prediction": {
+      "name": "check_prediction",
+      "description": "Build a custom task running js Code",
+      "action": "dynatrace.automations:run-javascript",
+      "input": {
+        "script": "import { execution } from '@dynatrace-sdk/automation-utils';\n\n    const THRESHOLD = 90;\n    const TASK_ID = 'predict_disk_capacity';\n\n    export default async function ({ execution_id }) {\n    const exe = await execution(execution_id);\n    const predResult = await exe.result(TASK_ID);\n    const result = predResult['result'];\n    const predictionSummary = { violation: false, violations: new Array<Record<string, string>>() };\n    console.log(\"Total number of predicted lines: \" + result.output.length);\n    // Check if prediction was successful.\n    if (result.resultStatus == 'SUCCESSFUL' && result.executionStatus == 'COMPLETED') {\n        console.log('Prediction was successful.')\n        // Check each predicted result, if it violates the threshold.\n        for (let i = 0; i < result.output.length; i++) {\n        const prediction = result.output[i];\n        // Check if the prediction result is considered valid\n        if (prediction.analysisStatus == 'OK' && prediction.forecastQualityAssessment == 'VALID') {\n            const lowerPredictions = prediction.timeSeriesDataWithPredictions.records[0]['dt.davis.forecast:lower'];\n            const lastValue = lowerPredictions[lowerPredictions.length-1];\n            // check against the threshold\n            if (lastValue < THRESHOLD) {\n            predictionSummary.violation = true;\n            // we need to remember all metric properties in the result,\n            // to inform the next actions which disk ran out of space\n            predictionSummary.violations.push(prediction.timeSeriesDataWithPredictions.records[0]);\n            }\n        }\n        }\n        console.log(predictionSummary.violations.length == 0 ? 'No violations found :)' : '' + predictionSummary.violations.length + ' capacity shortages were found!')\n        return predictionSummary;\n    } else {\n        console.log('Prediction run failed!');\n    }\n }"
+      },
+      "position": {
+        "x": 0,
+        "y": 2
+      },
+      "predecessors": [
+        "predict_disk_capacity"
+      ],
+      "conditions": {
+        "states": {
+          "predict_disk_capacity": "SUCCESS"
+        }
+      }
+    },
+    "predict_disk_capacity": {
+      "name": "predict_disk_capacity",
+      "description": "Execute a customizable AI/ML task using Davis® analyzers",
+      "action": "dynatrace.davis.workflow.actions:davis-analyze",
+      "input": {
+        "body": {
+          "nPaths": 200,
+          "timeSeriesData": "timeseries avg(dt.host.disk.free), by:{dt.entity.host} | filter dt.entity.host == \"HOST-F08A51905B17927F\"",
+          "forecastHorizon": 100,
+          "generalParameters": {
+            "timeframe": {
+              "endTime": "now",
+              "startTime": "now-72h"
+            },
+            "logVerbosity": "WARNING",
+            "resolveDimensionalQueryData": false
+          },
+          "coverageProbability": 0.9,
+          "applyZeroLowerBoundHeuristic": false
+        },
+        "analyzerName": "dt.statistics.GenericForecastAnalyzer"
+      },
+      "position": {
+        "x": 0,
+        "y": 1
+      },
+      "predecessors": []
+    },
+    "raise_violation_event": {
+      "name": "raise_violation_event",
+      "description": "Build a custom task running js Code",
+      "action": "dynatrace.automations:run-javascript",
+      "input": {
+        "script": "import { eventsClient, EventIngestEventType } from \"@dynatrace-sdk/client-classic-environment-v2\";\nimport { execution } from '@dynatrace-sdk/automation-utils';\n\nexport default async function ({ execution_id }) {\n const exe = await execution(execution_id);\n const checkResult = await exe.result('check_prediction');\n const violations = await checkResult.violations;\n // Raise an event for each violation\n violations.forEach(function (violation) {\n     eventsClient.createEvent({\n         body : {\n             eventType: EventIngestEventType.ResourceContentionEvent,\n             title: 'Predicted Disk Capacity Alarm',\n             //entitySelector: 'type(DISK),entityId(\"' + violation['dt.entity.disk'] + '\")',\n             properties: {\n                 'dt.entity.host' : violation['dt.entity.host']\n             }\n         }\n     });\n });\n};"
+      },
+      "position": {
+        "x": -1,
+        "y": 3
+      },
+      "predecessors": [
+        "check_prediction"
+      ],
+      "conditions": {
+        "states": {
+          "check_prediction": "SUCCESS"
+        },
+        "custom": "{{ result('check_prediction').violation }}"
+      }
+    }
+  },
+  "actor": "4bc14909-2c58-4e97-8801-f055fe3be850",
+  "owner": "4bc14909-2c58-4e97-8801-f055fe3be850",
+  "ownerType": "USER",
+  "isPrivate": false,
+  "trigger": {},
+  "schemaVersion": 3
+}

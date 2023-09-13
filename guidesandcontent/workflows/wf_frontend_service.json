@@ -1,0 +1,96 @@
+{
+  "id": "cbbd5590-d834-4754-b677-aea3077d546e",
+  "title": "Frontend Service - Performance and Errors Validation",
+  "description": "",
+  "tasks": {
+    "run_validation": {
+      "name": "run_validation",
+      "description": "Automation action to start a Site Reliability Guardian validation",
+      "action": "dynatrace.site.reliability.guardian:validate-guardian-action",
+      "input": {
+        "objectId": "vu9U3hXa3q0AAAABADFhcHA6ZHluYXRyYWNlLnNpdGUucmVsaWFiaWxpdHkuZ3VhcmRpYW46Z3VhcmRpYW5zAAZ0ZW5hbnQABnRlbmFudAAkMDY2MDNlZTgtNGZiYy0zNDM5LWFkMTAtZTcxNWI1NmZiM2Rivu9U3hXa3q0",
+        "executionId": "{{ execution().id }}",
+        "expressionTo": "",
+        "expressionFrom": "",
+        "timeframeSelector": {
+          "to": "now",
+          "from": "now-30m"
+        },
+        "timeframeInputType": "timeframeSelector"
+      },
+      "position": {
+        "x": 0,
+        "y": 1
+      },
+      "predecessors": []
+    },
+    "guardian_failed": {
+      "name": "guardian_failed",
+      "description": "Send a message to a Slack workspace",
+      "action": "dynatrace.slack:slack-send-message",
+      "input": {
+        "channel": "C05MM1PPWF2",
+        "message": ":red_circle: The latest Frontend Service validation finished with status: *{{ result(\"run_validation\").validation_status }}* \n\n<https://jja01219.apps.dynatrace.com/ui/apps/dynatrace.site.reliability.guardian/analysis/{{ result(\"run_validation\").guardian_id }}?validationId={{ result(\"run_validation\").validation_id }}|Show validation result>\n\n*DQL* to fetch result event:\n```\nfetch bizevents\n| filter event.provider == \"dynatrace.site.reliability.guardian\"\n| filter event.type == \"guardian.validation.finished\"\n| filter validation.id == \"{{ result(\"run_validation\").validation_id }}\"\n```",
+        "reaction": [],
+        "connection": "vu9U3hXa3q0AAAABAB5hcHA6ZHluYXRyYWNlLnNsYWNrOmNvbm5lY3Rpb24ABnRlbmFudAAGdGVuYW50ACQ4MDY4OWRkNS1mNjdjLTNkYTMtYjVhZS0xZDZmZWQ2NWJhZjO-71TeFdrerQ",
+        "workflowID": "{{ execution().workflow.id }}",
+        "channelType": "id",
+        "executionID": "{{ execution().id }}",
+        "executionDate": "{{ execution().started_at }}",
+        "appendToThread": false,
+        "selectedRequestType": 0,
+        "attachmentToggleValue": "none"
+      },
+      "position": {
+        "x": -1,
+        "y": 2
+      },
+      "predecessors": [
+        "run_validation"
+      ],
+      "conditions": {
+        "states": {
+          "run_validation": "OK"
+        },
+        "custom": "{{ result(\"run_validation\").validation_status == \"fail\" }}"
+      }
+    },
+    "guardian_passed": {
+      "name": "guardian_passed",
+      "description": "Send a message to a Slack workspace",
+      "action": "dynatrace.slack:slack-send-message",
+      "input": {
+        "channel": "C05MM1PPWF2",
+        "message": ":large_green_circle: The latest Frontend Service validation finished with status: *{{result(\"run_validation\").validation_status }}* \n<https://jja01219.apps.dynatrace.com/ui/apps/dynatrace.site.reliability.guardian/analysis/{{ \nresult(\"run_validation\").guardian_id }}?validationId={{ result(\"run_validation\").validation_id }}|Show validation result>\n*DQL* to fetch result event:\n```\nfetch bizevents\n| filter event.provider == \"dynatrace.site.reliability.guardian\"\n| filter event.type == \"guardian.validation.finished\"\n| filter validation.id == \"{{ result(\"run_validation\").validation_id }}\"\n```",
+        "reaction": [],
+        "connection": "vu9U3hXa3q0AAAABAB5hcHA6ZHluYXRyYWNlLnNsYWNrOmNvbm5lY3Rpb24ABnRlbmFudAAGdGVuYW50ACQ4MDY4OWRkNS1mNjdjLTNkYTMtYjVhZS0xZDZmZWQ2NWJhZjO-71TeFdrerQ",
+        "workflowID": "{{ execution().workflow.id }}",
+        "channelType": "id",
+        "executionID": "{{ execution().id }}",
+        "executionDate": "{{ execution().started_at }}",
+        "appendToThread": false,
+        "selectedRequestType": 0,
+        "attachmentToggleValue": "none"
+      },
+      "position": {
+        "x": 1,
+        "y": 2
+      },
+      "predecessors": [
+        "run_validation"
+      ],
+      "conditions": {
+        "states": {
+          "run_validation": "OK"
+        },
+        "custom": "{{ result(\"run_validation\").validation_status == \"pass\" }}"
+      }
+    }
+  },
+  "actor": "4bc14909-2c58-4e97-8801-f055fe3be850",
+  "owner": "4bc14909-2c58-4e97-8801-f055fe3be850",
+  "ownerType": "USER",
+  "isPrivate": true,
+  "trigger": {},
+  "schemaVersion": 3
+}
