@@ -1,5 +1,4 @@
 # Here's how to install and run the Dynatrace Platform Workshop!
-Note: This is the first iteration of this workshop. There are many updates I'd like to do to reduce the footprint (maybe only use 1-2 app instead of 3) and to build out the use cases further. Also, all the images are going to move to GitHub to have all of the assets in one spot. The only way to host images in GitHub (the only way I've found that works with Notebooks) is to open an issue and copy the iamge to it. 
 
 ## Workshop Format
 * This workshop is intended to be a hands on introduction to Grail and the new Dynatrace platform.
@@ -21,7 +20,7 @@ Note: This is the first iteration of this workshop. There are many updates I'd l
 
 ## Requirements
 * Dynatrace SaaS Tenant with Grail/Platform
-  * AppSec Events Preview Turned On
+  * Dynatrace AppSec RVA Turned On: https://docs.dynatrace.com/docs/shortlink/vulnerability-analytics
 * K8s cluster
   * Tested Specs: 3 Nodes	24 vCPU	96 GB	RAM
  
@@ -34,14 +33,13 @@ Note: This is the first iteration of this workshop. There are many updates I'd l
 kubectl create namespace easytrade
 kubectl apply -f ./easytrade/manifests
 
-kubectl create namespace easytravel
-kubectl apply -f ./easytravel/manifests
-
 kubectl create namespace hipstershop
 kubectl apply -f ./hipstershop/manifests
 ```
 * Create SLOs
-* Create Biz Events
+* Create Biz Events (optional)
+  * EasyTrade's headlessloadgen creates the following biz events without needing any configuration in the Dynatrace UI: com.easytrade.buy.start, com.easytrade.buy.finish, com.easytrade.deposit.start, com.easytrade.sell.start, com.easytrade.sell.finish
+  * While the activities do not require additional biz events, it's nice to have a few configured in the UI to show users how they would be configured. Swap out the tenant ID and API token (scope: Write Configurations) and use the API curl snippets here to configure additonal biz events: https://github.com/JasonOstroski/platformworkshop2023/blob/main/guidesandcontent/bizevents/EasyTradeBizEvents
 * Upload Dashboards & Notebooks
 * Assign users to a group with the following policies
   *  AppEngine - User
