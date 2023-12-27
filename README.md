@@ -1,7 +1,7 @@
 # Here's how to install and run the Dynatrace Platform Workshop!
 
 ## Workshop Format
-* This workshop is intended to be a hands on introduction to Grail and the new Dynatrace platform.
+* This workshop is intended to be a hands on introduction to the latest Dynatrace platform.
 * Audience: Existing Dynatrace customers and late stage prospects (Intermediate Level Workshop).
 * Time: 2.5-4 Hours depending on how many labs you want to cover.
 * Present a 30 minute "Getting to know the new Dynatrace/Platform Update" presentation.
