@@ -45,6 +45,7 @@ kubectl apply -f ./hipstershop/manifests
 ```
 * Set a log ingest rule to ingest all logs
 * Create SLOs
+  * Swap the tenant ID and API token (scope: Write Configuration) and use the API curl snipper here to configure the SLO: https://github.com/JasonOstroski/platformworkshop2023/blob/main/guidesandcontent/slo/BrokerServicePerformanceSLO 
 * Create Biz Events (optional)
   * EasyTrade's headlessloadgen creates the following biz events without needing any configuration in the Dynatrace UI: com.easytrade.buy.start, com.easytrade.buy.finish, com.easytrade.deposit.start, com.easytrade.sell.start, com.easytrade.sell.finish
   * While the activities do not require additional biz events, it's nice to have a few configured in the UI to show users how they would be configured. Swap out the tenant ID and API token (scope: Write Configurations) and use the API curl snippets here to configure additonal biz events: https://github.com/JasonOstroski/platformworkshop2023/blob/main/guidesandcontent/bizevents/EasyTradeBizEvents
