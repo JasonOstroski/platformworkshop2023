@@ -23,7 +23,9 @@
   * Dynatrace AppSec RVA Turned On: https://docs.dynatrace.com/docs/shortlink/vulnerability-analytics
 * K8s cluster
   * Tested Specs: 3 Nodes	24 vCPU	96 GB	RAM
-  * You could probably get away with a smaller cluster. I recently removed EasyTravel and the labs only use EasyTrade and HipsterShop, but I have not yet tested this with less resources. 
+  * You could probably get away with a smaller cluster. I recently removed EasyTravel and the labs only use EasyTrade and HipsterShop, but I have not yet tested this with less resources.
+* Free Tier Slack Account (For Release Evaluation Lab)
+  * Sign up for one with a personal email here: https://slack.com/get-started#/createnew
  
 ## Setup
 * Spin up the K8s cluster and configure outbound rules for OneAgent traffic
@@ -68,4 +70,7 @@ kubectl apply -f ./hipstershop/manifests
   * Storage Spans Read
 * Upload and share Dashboards & Notebooks in this repo
   * The notebooks will be the lab guides/answer key for the workshop. Share them as view only with the group you created.
+* Connect Slack (For Release Evaluation Lab)
+  * Install the Slack for Workflows app in your Dynatrace Tenant from the hub
+  * Add the connection, you will need a bot token to your slack account. This involved creating a new app in Slack,  adding it to your workspace, authorizing it and getting the bot token: https://api.slack.com/start/quickstart
   
